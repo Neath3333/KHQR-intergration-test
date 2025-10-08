@@ -1,22 +1,22 @@
-# 🛒 Bakong KHQR E-commerce Integration
+#  Bakong KHQR E-commerce Integration
 
 A complete e-commerce backend with **Bakong KHQR payment integration** for Cambodia's national payment system. Includes product management, shopping cart, order processing, and real-time payment verification.
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🏪 **Product Management** - Full CRUD operations for products
-- 🛒 **Shopping Cart** - Add to cart and checkout functionality
-- 💳 **KHQR Payment** - Generate QR codes for Bakong payments
-- ✅ **Payment Verification** - Real-time payment confirmation via NBC API
-- 🌐 **Web Interface** - Built-in shopping UI for testing
-- 📱 **Multi-Bank Support** - Works with any KHQR-compatible banking app
-- 🔒 **Secure** - JWT-based authentication with NBC
+-  **Product Management** - Full CRUD operations for products
+-  **Shopping Cart** - Add to cart and checkout functionality
+-  **KHQR Payment** - Generate QR codes for Bakong payments
+-  **Payment Verification** - Real-time payment confirmation via NBC API
+-  **Web Interface** - Built-in shopping UI for testing
+-  **Multi-Bank Support** - Works with any KHQR-compatible banking app
+-  **Secure** - JWT-based authentication with NBC
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Installation
 
@@ -88,7 +88,7 @@ Server runs at: **http://localhost:4000**
 
 ---
 
-## 🌐 Using the Web Interface
+##  Using the Web Interface
 
 ### Access the Store
 Open your browser: **http://localhost:4000**
@@ -110,7 +110,7 @@ Open your browser: **http://localhost:4000**
 
 ---
 
-## 📡 API Documentation
+##  API Documentation
 
 ### Base URL
 ```
@@ -246,7 +246,7 @@ GET /api/products
 
 ---
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 bakong-open-api/
@@ -283,7 +283,7 @@ bakong-open-api/
 
 ---
 
-## 💳 Payment Flow
+##  Payment Flow
 
 ```
 Customer                    Your Server                 NBC Bakong
@@ -304,7 +304,7 @@ Customer                    Your Server                 NBC Bakong
 
 ---
 
-## 🔧 Tech Stack
+##  Tech Stack
 
 - **Runtime:** Node.js 18+
 - **Framework:** Express.js
@@ -316,7 +316,7 @@ Customer                    Your Server                 NBC Bakong
 
 ---
 
-## 📱 Supported Banking Apps
+##  Supported Banking Apps
 
 Any KHQR-compatible app can scan and pay:
 
@@ -332,16 +332,16 @@ Any KHQR-compatible app can scan and pay:
 
 ---
 
-## 🔐 Security Notes
+##  Security Notes
 
-- ⚠️ **Never commit `.env` file** - Contains sensitive credentials
-- 🔄 **Token expires** - Renew access token every ~90 days at NBC portal
-- 🔒 **CORS enabled** - Update in production for specific domains
-- 🛡️ **Payment verification** - Always verify via NBC API, never trust client
+-  **Never commit `.env` file** - Contains sensitive credentials
+-  **Token expires** - Renew access token every ~90 days at NBC portal
+-  **CORS enabled** - Update in production for specific domains
+-  **Payment verification** - Always verify via NBC API, never trust client
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 # Run tests
@@ -358,7 +358,7 @@ curl -X POST http://localhost:4000/api/orders/create \
 
 ---
 
-## 🚨 Troubleshooting
+##  Troubleshooting
 
 ### Port 3000 already in use
 ```bash
@@ -388,7 +388,7 @@ node seeds/productSeeder.js
 
 ---
 
-## 📞 Support
+##  Support
 
 For Bakong integration issues, contact:
 - **NBC Bakong Support:** [bakong.nbc.gov.kh](https://bakong.nbc.gov.kh)
