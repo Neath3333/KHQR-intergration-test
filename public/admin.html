@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Payment Verification</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .order-card {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .order-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .detail-item {
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+        }
+        .detail-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .detail-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+        .items-list {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .item:last-child {
+            border-bottom: none;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        .refresh-btn {
+            background: #2196F3;
+        }
+        .refresh-btn:hover {
+            background: #0b7dda;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .badge-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+        .confirm-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .confirm-form input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Admin Panel - Payment Verification</h1>
+
+        <div class="success-message" id="successMessage"></div>
+        <div class="error-message" id="errorMessage"></div>
+
+        <!-- Pending Payments Section -->
+        <div class="section">
+            <h2>⏳ Pending Payments</h2>
+            <button class="refresh-btn" onclick="loadPendingPayments()">🔄 Refresh</button>
+            <div id="pendingPayments"></div>
+        </div>
+
+        <!-- Paid Orders Section -->
+        <div class="section">
+            <h2>✅ Recently Confirmed Payments</h2>
+            <button class="refresh-btn" onclick="loadPaidOrders()">🔄 Refresh</button>
+            <div id="paidOrders"></div>
+        </div>
+    </div>
+
+    <script>
+        // Load pending payments
+        async function loadPendingPayments() {
+            try {
+                const response = await fetch('/api/manual-payment/pending');
+                const data = await response.json();
+
+                const container = document.getElementById('pendingPayments');
+
+                if (data.data.count === 0) {
+                    container.innerHTML = '<div class="empty-state">✨ No pending payments. All orders are up to date!</div>';
+                    return;
+                }
+
+                container.innerHTML = data.data.orders.map(order => `
+                    <div class="order-card">
+                        <h3>
+                            ${order.orderId}
+                            <span class="badge badge-pending">PENDING</span>
+                        </h3>
+                        <div class="order-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Amount</div>
+                                <div class="detail-value">${order.amount.toLocaleString()} ${order.currency}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Created</div>
+                                <div class="detail-value">${new Date(order.createdAt).toLocaleString()}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Expires</div>
+                                <div class="detail-value">${new Date(order.expiresAt).toLocaleString()}</div>
+                            </div>
+                        </div>
+                        <div class="items-list">
+                            <strong>Items:</strong>
+                            ${order.items.map(item => `
+                                <div class="item">
+                                    ${item.name} - ${item.quantity}x ${item.price} ${order.currency}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="confirm-form">
+                            <input type="text" id="txn-${order.orderId}" placeholder="Transaction reference (from bank app)">
+                            <button onclick="confirmPayment('${order.orderId}', ${order.amount})">
+                                ✅ Confirm Payment
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading pending payments:', error);
+                showError('Failed to load pending payments');
+            }
+        }
+
+        // Load paid orders
+        async function loadPaidOrders() {
+            try {
+                const response = await fetch('/api/manual-payment/paid');
+                const data = await response.json();
+
+                const container = document.getElementById('paidOrders');
+
+                if (data.data.count === 0) {
+                    container.innerHTML = '<div class="empty-state">No paid orders yet.</div>';
+                    return;
+                }
+
+                container.innerHTML = data.data.orders.slice(0, 10).map(order => `
+                    <div class="order-card">
+                        <h3>
+                            ${order.orderId}
+                            <span class="badge badge-paid">PAID</span>
+                        </h3>
+                        <div class="order-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Amount</div>
+                                <div class="detail-value">${order.amount.toLocaleString()} ${order.currency}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Paid At</div>
+                                <div class="detail-value">${new Date(order.paidAt).toLocaleString()}</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading paid orders:', error);
+                showError('Failed to load paid orders');
+            }
+        }
+
+        // Confirm payment
+        async function confirmPayment(orderId, amount) {
+            const txnRef = document.getElementById(`txn-${orderId}`).value;
+
+            if (!confirm(`Confirm payment of ${amount} KHR for ${orderId}?\n\nMake sure you verified this in your ACLEDA app!`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/manual-payment/confirm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        orderId: orderId,
+                        paidAmount: amount,
+                        transactionReference: txnRef || 'Manual confirmation'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess(`✅ Payment confirmed for ${orderId}!`);
+                    loadPendingPayments();
+                    loadPaidOrders();
+                } else {
+                    showError(data.message || 'Failed to confirm payment');
+                }
+            } catch (error) {
+                console.error('Error confirming payment:', error);
+                showError('Failed to confirm payment');
+            }
+        }
+
+        function showSuccess(message) {
+            const el = document.getElementById('successMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 5000);
+        }
+
+        function showError(message) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 5000);
+        }
+
+        // Load data on page load
+        loadPendingPayments();
+        loadPaidOrders();
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            loadPendingPayments();
+        }, 30000);
+    </script>
+</body>
+</html>

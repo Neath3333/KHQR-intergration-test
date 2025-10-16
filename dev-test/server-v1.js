@@ -45,9 +45,9 @@ app.post('/api/generate-khqr', async (req, res) => {
     };
 
     const individualInfo = new IndividualInfo(
-      "sodaneath_somethea@bred", // Bakong Account ID
-      "Sodaneath Somethea",       // Name
-      "PHNOM PENH",           // City
+      process.env.BAKONG_ACCOUNT_USERNAME, // Bakong Account ID from .env
+      "Your Name",                          // Name
+      "Your City",                          // City
       optionalData
     );
 

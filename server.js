@@ -3,6 +3,7 @@ const express = require('express');
 const paymentRoutes = require('./src/api/routes/paymentRoute');
 const productRoutes = require('./src/api/routes/productRoute');
 const orderRoutes = require('./src/api/routes/orderRoute');
+const manualPaymentRoutes = require('./src/api/routes/manualPaymentRoute');
 const connectDB = require('./src/config/db');
 const cors = require('cors');
 
@@ -19,6 +20,7 @@ app.use(express.static('public'));
 app.use('/api', paymentRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/manual-payment', manualPaymentRoutes);
 
 // Only connect to DB & start server if not testing
 if (process.env.NODE_ENV !== 'test') {

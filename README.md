@@ -58,7 +58,7 @@ BAKONG_DEV_BASE_API_URL=https://sit-api-bakong.nbc.gov.kh/v1
 BAKONG_PROD_BASE_API_URL=https://api-bakong.nbc.gov.kh/v1
 
 # Your Bakong Account (REQUIRED)
-BAKONG_ACCOUNT_USERNAME=sodaneath_somethea@bred
+BAKONG_ACCOUNT_USERNAME=your_account@bank_code
 BAKONG_ACCESS_TOKEN=your_token_from_nbc_merchant_portal
 
 # Optional
