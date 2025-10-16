@@ -4,6 +4,7 @@ const orderController = require("../controllers/orderController");
 
 router.post("/create", orderController.createOrder);
 router.post("/check-payment", orderController.checkOrderPayment);
+router.get("/:orderId/status", orderController.checkPaymentStatus);
 router.get("/:orderId", orderController.getOrderInfo);
 
 module.exports = router;

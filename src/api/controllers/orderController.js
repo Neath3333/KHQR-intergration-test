@@ -157,3 +157,46 @@ exports.getOrderInfo = async (req, res) => {
     return errorResponse(res, "Failed to fetch order", err);
   }
 };
+
+// Check payment status (for customers)
+exports.checkPaymentStatus = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await Order.findOne({ orderId });
+    if (!order) {
+      return errorResponse(res, "Order not found", null, 404);
+    }
+
+    // Check if order expired
+    const isExpired = Date.now() > order.expiration;
+
+    // Determine status
+    let status = "pending";
+    let message = "Payment pending. Please scan the QR code to complete payment.";
+
+    if (order.paid) {
+      status = "paid";
+      message = "Payment confirmed! Your order is being processed.";
+    } else if (isExpired) {
+      status = "expired";
+      message = "QR code expired. Please create a new order.";
+    }
+
+    return successResponse(res, message, {
+      orderId: order.orderId,
+      status: status,
+      paid: order.paid,
+      amount: order.amount,
+      currency: order.currency,
+      items: order.items,
+      createdAt: order.createdAt,
+      expiresAt: order.expiration,
+      paidAt: order.paidAt || null,
+      qr: !order.paid && !isExpired ? order.qr : null, // Only show QR if unpaid and not expired
+    });
+  } catch (err) {
+    console.error(err);
+    return errorResponse(res, "Failed to check payment status", err);
+  }
+};

@@ -345,7 +345,7 @@
                     <p><strong>Amount:</strong> <span id="amount"></span> KHR</p>
                     <p>Scan this QR code with your Bakong app to complete payment</p>
                 </div>
-                <button class="verify-btn" onclick="verifyPayment()">Verify Payment</button>
+                <button class="verify-btn" onclick="verifyPayment()">📱 Track Payment Status</button>
                 <div id="paymentResult"></div>
             </div>
         </div>
@@ -538,42 +538,12 @@
             document.getElementById('qrModal').classList.add('active');
         }
 
-        // Verify payment
+        // Verify payment - Redirect to status page
         async function verifyPayment() {
             if (!currentOrder) return;
 
-            try {
-                const response = await fetch(`${API_URL}/orders/verify`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ md5: currentOrder.md5 })
-                });
-
-                const result = await response.json();
-                const resultDiv = document.getElementById('paymentResult');
-
-                if (result.success) {
-                    resultDiv.innerHTML = `
-                        <div class="success-message">
-                            <h3>✅ Payment Confirmed!</h3>
-                            <p>Order ID: ${result.data.orderId}</p>
-                            <p>Transaction Hash: ${result.data.bakongHash}</p>
-                        </div>
-                    `;
-                    cart = [];
-                    updateCartCount();
-                } else {
-                    resultDiv.innerHTML = `
-                        <div style="background: #e74c3c; color: white; padding: 15px; border-radius: 5px; text-align: center;">
-                            <p>${result.message}</p>
-                            <p>Please complete payment in Bakong app</p>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Verification error:', error);
-                alert('Error verifying payment');
-            }
+            // Redirect to order status page
+            window.location.href = `/order-status.html?orderId=${currentOrder.orderId}`;
         }
 
         // Close QR modal

@@ -20,27 +20,27 @@ const optionalData = {
 };
 
 const individualInfo = new IndividualInfo(
-    "sodaneath_somethea@bred",
-    "Sodaneath Somethea",
-    "PhnomPenh",
+    process.env.BAKONG_ACCOUNT_USERNAME,
+    "Your Name",
+    "Your City",
     optionalData
 );
 
-const khqr = new BakongKHQR("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiODgwMGY3ZGZlN2ZhNGY1YSJ9LCJpYXQiOjE3NTYyNjM3MjIsImV4cCI6MTc2NDAzOTcyMn0.x1cJwa1e32sKa0lRsENb5gw8oVsOa2mk_8Scy5ffxwE");
+const khqr = new BakongKHQR(process.env.BAKONG_ACCESS_TOKEN);
 const response = khqr.generateIndividual(individualInfo);
 console.log(response);
 
 
 // --- Verify QR --- //
-const qrString = "00020101021129240020sodaneath_somethea@bred5204599953031165802KH59031166009Sodaneath63040798";
-const isKhqr = BakongKHQR.verify(qrString);
+// const qrString = "your_qr_string_here";
+// const isKhqr = BakongKHQR.verify(qrString);
 // console.log("isKhqr", isKhqr.isValid);
 // --- Verify QR ---//
 
 
 // --- Decoded QR --- //
-const qrStringForDecoded = "00020101021129240020sodaneath_somethea@bred5204599953031165802KH59031166009Sodaneath63048F7E";
-const decodedValue = BakongKHQR.decode(qrStringForDecoded);
+// const qrStringForDecoded = "your_qr_string_here";
+// const decodedValue = BakongKHQR.decode(qrStringForDecoded);
 // console.log("decodedValue", decodedValue);
 
 

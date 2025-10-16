@@ -20,7 +20,7 @@ class BakongService {
 
         console.log('Fetching new Bakong access token...');
         try {
-            const response = await axios.post(`${process.env.BAKONG_BASE_URL}/token`, {
+            const response = await axios.post(`${process.env.BAKONG_PROD_BASE_API_URL}/token`, {
                 merchant_id: process.env.BAKONG_MERCHANT_ID,
                 secret: process.env.BAKONG_SECRET,
             });
@@ -94,7 +94,7 @@ class BakongService {
             // Use token directly from .env
             const accessToken = process.env.BAKONG_ACCESS_TOKEN;
             const response = await axios.post(
-                `${process.env.BAKONG_BASE_URL}/check_transaction_by_md5`,
+                `${process.env.BAKONG_PROD_BASE_API_URL}/check_transaction_by_md5`,
                 { md5 },
                 {
                     headers: {
