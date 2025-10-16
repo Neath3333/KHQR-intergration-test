@@ -108,6 +108,23 @@ Open your browser: **http://localhost:4000**
 7. **Verify Payment** - Click "Verify Payment" button
 8. **Success!** - Order confirmed with transaction hash
 
+### Admin Panel (Manual Payment Verification)
+
+If automatic payment verification fails, use the admin panel:
+
+**Access:** **http://localhost:4000/admin.html**
+
+**Features:**
+- View all pending payments
+- Manually confirm payments after verifying in your bank app
+- See recently confirmed orders
+- Auto-refreshes every 30 seconds
+
+**When to use:**
+- KHQR auto-verification fails
+- Customer paid but system didn't detect it
+- Token expired but payment was made
+
 ---
 
 ##  API Documentation
