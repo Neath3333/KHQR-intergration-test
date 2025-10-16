@@ -1,12 +1,12 @@
 # Bakong E-commerce Payment System - Complete Guide
 
-## 🔒 SECURITY WARNING
+## SECURITY WARNING
 
 **IMPORTANT:** Never push your `.env` file to GitHub!
 
-- ✅ `.env` is protected by `.gitignore` (safe)
-- ✅ `.env.example` has fake values (safe to share)
-- ❌ Never commit real account info or tokens
+- `.env` is protected by `.gitignore` (safe)
+- `.env.example` has fake values (safe to share)
+- Never commit real account info or tokens
 
 **Before pushing to GitHub, always check:**
 ```bash
@@ -16,7 +16,7 @@ If you see `.env` in the list, **DO NOT commit it!**
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Start the Server
 ```bash
@@ -37,7 +37,7 @@ http://localhost:4000/admin.html
 
 ---
 
-## 📱 How It Works
+## How It Works
 
 ### Customer Side:
 1. Browse products at `http://localhost:4000/`
@@ -45,7 +45,7 @@ http://localhost:4000/admin.html
 3. Get QR code → Scan with banking app → Pay
 4. Click "Track Payment Status"
 5. Wait for confirmation (auto-refreshes every 5 seconds)
-6. See "✅ Payment Confirmed!" when you approve it
+6. See "Payment Confirmed!" when you approve it
 7. Click "Continue Shopping" to buy more
 
 ### Your Side (Merchant):
@@ -60,7 +60,7 @@ http://localhost:4000/admin.html
 
 ---
 
-## ⚙️ Current Setup
+## Current Setup
 
 - **Account:** Your Bakong account (configured in `.env`)
 - **Environment:** Production (Real money transactions)
@@ -69,7 +69,7 @@ http://localhost:4000/admin.html
 
 ---
 
-## 🔄 Payment Flow
+## Payment Flow
 
 ```
 Customer creates order
@@ -91,25 +91,25 @@ Customer continues shopping
 
 ---
 
-## ❓ Why Manual Verification?
+## Why Manual Verification?
 
 **Your current account type:**
 - Individual/Personal ACLEDA account
-- ✅ Can generate QR codes
-- ✅ Can receive payments
-- ❌ **Cannot auto-verify payments via API**
+- Can generate QR codes
+- Can receive payments
+- **Cannot auto-verify payments via API**
 
 **What you need for auto-verification:**
 - Bakong Merchant Account
-- ✅ Can generate QR codes
-- ✅ Can receive payments
-- ✅ **Can auto-verify payments via API**
-- ✅ Gets webhooks when payment arrives
+- Can generate QR codes
+- Can receive payments
+- **Can auto-verify payments via API**
+- Gets webhooks when payment arrives
 - No manual checking needed!
 
 ---
 
-## 🏢 Getting Merchant Account (For Auto-Verification)
+## Getting Merchant Account (For Auto-Verification)
 
 ### Contact:
 - **Email:** bakong-support@nbc.gov.kh
@@ -136,7 +136,7 @@ Then payments will be **automatically verified** - no manual checking!
 
 ---
 
-## 📋 API Endpoints
+## API Endpoints
 
 ### Customer Endpoints:
 - `POST /api/orders/create` - Create order & get QR code
@@ -152,7 +152,7 @@ Then payments will be **automatically verified** - no manual checking!
 
 ---
 
-## 🛠️ Admin Panel Usage
+## Admin Panel Usage
 
 ### Confirm Payment:
 ```
@@ -167,14 +167,14 @@ Then payments will be **automatically verified** - no manual checking!
 
 3. (Optional) Enter transaction reference from bank
 
-4. Click "✅ Confirm Payment"
+4. Click "Confirm Payment"
 
 5. Done! Customer sees confirmation within 5 seconds
 ```
 
 ---
 
-## 🔧 Environment Variables
+## Environment Variables
 
 Your `.env` file:
 ```env
@@ -194,7 +194,7 @@ BAKONG_MERCHANT_ID=YOUR_BAKONG_MERCHANT_ID
 
 ---
 
-## 🆘 Troubleshooting
+## Troubleshooting
 
 **Q: Customer paid but system shows "Awaiting Payment"?**
 A: Open admin panel and click "Confirm Payment" after verifying in your ACLEDA app
@@ -213,27 +213,27 @@ A: Apply for Bakong Merchant Account with National Bank of Cambodia
 
 ---
 
-## 📊 Comparison
+## Comparison
 
 | Feature | Current (Individual) | With Merchant Account |
 |---------|---------------------|----------------------|
-| Receive payments | ✅ Yes | ✅ Yes |
-| Generate QR codes | ✅ Yes | ✅ Yes |
-| Manual verification | ✅ Yes (30 sec/order) | ✅ Yes (optional) |
-| **Auto verification** | ❌ **No** | ✅ **Yes (instant)** |
-| Webhooks | ❌ No | ✅ Yes |
-| Transaction reports | ❌ No | ✅ Yes |
+| Receive payments | Yes | Yes |
+| Generate QR codes | Yes | Yes |
+| Manual verification | Yes (30 sec/order) | Yes (optional) |
+| **Auto verification** | **No** | **Yes (instant)** |
+| Webhooks | No | Yes |
+| Transaction reports | No | Yes |
 | **Best for** | Testing, small scale | **Production, e-commerce** |
 
 ---
 
-## 💡 Summary
+## Summary
 
 **Current System:**
-- ✅ Fully functional for receiving payments
-- ✅ Customer can pay via Bakong QR
-- ✅ Customer sees status updates automatically
-- ⚠️ You must manually confirm each payment (30 seconds)
+- Fully functional for receiving payments
+- Customer can pay via Bakong QR
+- Customer sees status updates automatically
+- You must manually confirm each payment (30 seconds)
 
 **To Make It Fully Automatic:**
 - Apply for Bakong Merchant Account
@@ -243,7 +243,7 @@ A: Apply for Bakong Merchant Account with National Bank of Cambodia
 
 ---
 
-## 📞 Support
+## Support
 
 For merchant account registration:
 - **Email:** bakong-support@nbc.gov.kh
@@ -251,4 +251,4 @@ For merchant account registration:
 
 ---
 
-**Your system is ready to use! Start accepting payments now with manual verification, or apply for merchant account for full automation.** 🚀
+**Your system is ready to use! Start accepting payments now with manual verification, or apply for merchant account for full automation.**
